@@ -21,17 +21,11 @@ class _SplashScreeenState extends State<SplashScreeen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: UIConverter.getComponentHeight(context, 51),
-            ),
-            Image(
-              image: const AssetImage(
+            const Image(
+              image: AssetImage(
                 "assets/images/splash.png",
               ),
-              fit: BoxFit.contain,
-            ),
-            SizedBox(
-              height: UIConverter.getComponentHeight(context, 120),
+              fit: BoxFit.fitWidth,
             ),
             PrimaryButton(
                 text: "Get Started",
@@ -45,7 +39,7 @@ class _SplashScreeenState extends State<SplashScreeen> {
                 fontFamily: "Urbanist",
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
-                textColor: mainTextColor,
+                textColor: Colors.white,
                 borderRadius: 12)
           ],
         ),

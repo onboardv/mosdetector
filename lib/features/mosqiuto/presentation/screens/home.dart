@@ -72,11 +72,11 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         margin:
                             const EdgeInsets.only(top: 10, left: 6, right: 6),
-                        width: UIConverter.getComponentWidth(context, 190),
-                        height: UIConverter.getComponentHeight(context, 230),
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 6, right: 6),
                         decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.grey,
@@ -88,10 +88,10 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             width: UIConverter.getComponentWidth(context, 190),
                             height:
-                                UIConverter.getComponentHeight(context, 126),
+                                UIConverter.getComponentHeight(context, 110),
                             decoration: BoxDecoration(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
+                                  const BorderRadius.all(Radius.circular(5)),
                               image: DecorationImage(
                                   image: AssetImage(
                                       MosqiutoesList.mosquitoes[index].url),
@@ -146,7 +146,6 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
         width: 120,
         height: 60,
@@ -171,8 +170,8 @@ class _HomePageState extends State<HomePage> {
               fontFamily: "fontFamily",
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              textColor: mainTextColor,
-              borderRadius: 10),
+              textColor: Colors.white,
+              borderRadius: 5),
         ),
       ),
       // PrimaryButton(

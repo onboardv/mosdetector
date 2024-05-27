@@ -44,7 +44,6 @@ class _BottomNavState extends State<BottomNav> {
         type: BottomNavigationBarType.fixed,
         onTap: (int i) {
           if (i == 1) {
-            print("dfddddddddddddddddddddddddddd");
               BlocProvider.of<MosqiutoBloc>(context).add(MosquitoGetMosquitoesEvent());
           } 
           

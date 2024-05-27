@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 
@@ -18,7 +17,6 @@ import '../../../../core/utils/ui_converter.dart';
 import '../bloc/mosqiuto_bloc.dart';
 import 'package:mosdetector/features/mosqiuto/presentation/screens/mosqiuto_detail_page.dart';
 import 'package:record/record.dart';
-
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -68,7 +66,6 @@ class _RecorderPageState extends State<RecorderPage> {
   void stopTimer() {
     _timer?.cancel();
     _isRecording = false;
-    
   }
 
   Future<void> initRecorder() async {
@@ -116,8 +113,6 @@ class _RecorderPageState extends State<RecorderPage> {
     return recordingFile;
   }
 
-
-
   Future<String?> uploadWavFile(String filePath) async {
     var headers = {
       'Content-Type': 'multipart/form-data',
@@ -133,7 +128,8 @@ class _RecorderPageState extends State<RecorderPage> {
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
         Map<String, dynamic> jsonResponse = jsonDecode(responseBody);
-        List<String> predictions = List<String>.from(jsonResponse['prediction']);
+        List<String> predictions =
+            List<String>.from(jsonResponse['prediction']);
         // if(predictions.length>1)
         //   {
         //     return 'bgn';
@@ -165,16 +161,15 @@ class _RecorderPageState extends State<RecorderPage> {
     return counts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MosqiutoBloc, MosqiutoState>(
       listener: (context, state) async {
         if (state is MosquitoDetectedState) {
-        //  final name = state.mosquitoModel.name;
+          //  final name = state.mosquitoModel.name;
           File audioFile = File(_finalAudioFile);
           String filePath = audioFile.path;
-          final name=await uploadWavFile(filePath);
+          final name = await uploadWavFile(filePath);
           debugPrint('$name , ${name.runtimeType}');
 
           // if(name.toString()=="bgn")
@@ -190,13 +185,13 @@ class _RecorderPageState extends State<RecorderPage> {
           //         ),
           //       ),
           //     );
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => SoundBackgroundScreen()
-              //   ),
-              // );
-            // }
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => SoundBackgroundScreen()
+          //   ),
+          // );
+          // }
           // debugPrint("--++---");
           // debugPrint(state.mosquitoModel.toJson().toString());
           // debugPrint("-------");
@@ -209,7 +204,7 @@ class _RecorderPageState extends State<RecorderPage> {
           }
           //debugPrint(name);
           //debugPrint("-------");
-         // debugPrint("${dict[name]!.description}");
+          // debugPrint("${dict[name]!.description}");
           //debugPrint("${name}");
           //debugPrint("${dict[name]!.url}");
           if (name != null && name != "Mosquito Not Found") {
@@ -251,7 +246,6 @@ class _RecorderPageState extends State<RecorderPage> {
         }
       },
       builder: (context, state) {
-
         return Scaffold(
           appBar: CHSAppBar.build(context, 'Detection', () {}, true),
           body: Center(
@@ -273,45 +267,71 @@ class _RecorderPageState extends State<RecorderPage> {
                       fontSize: 80, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
-                if (!detectState) Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_isRecording) {
-                          audioFile = await stopRecording();
+                if (!detectState)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_isRecording) {
+                            audioFile = await stopRecording();
 
-                          print('Recorded audio saved to: ${audioFile.path}');
-                        } else {
-                          await startRecording();
-                        }
-                      },
-                      child: Icon(
-                        _isRecording ? Icons.stop : Icons.mic,
-                        size: 40,
+                            print('Recorded audio saved to: ${audioFile.path}');
+                          } else {
+                            await startRecording();
+                          }
+                        },
+                        child: Icon(
+                          _isRecording ? Icons.stop : Icons.mic,
+                          size: 40,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
                 SizedBox(height: UIConverter.getComponentHeight(context, 80)),
-                if (detectState) (state is MosquitoLoadingState ) ? const CircularProgressIndicator(backgroundColor: Colors.red,) : PrimaryButton(
-                  text: "Detect",
-                  backgroundColor: buttonColor,
-                  onPressed: () {
-                    BlocProvider.of<MosqiutoBloc>(context).add(
-                      MosquitoDetectMosquitoesEvent(audio: _finalAudioFile),
-                    );
-                  },
-                  height: UIConverter.getComponentHeight(context, 70),
-                  width: UIConverter.getComponentWidth(context, 180),
-                  fontFamily: "Urbanist",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  textColor: mainTextColor,
-                  borderRadius: 12,
-                ),
-
-
+                if (detectState)
+                  (state is MosquitoLoadingState)
+                      ? const CircularProgressIndicator(
+                          backgroundColor: Colors.red,
+                        )
+                      : PrimaryButton(
+                          text: "Detect",
+                          backgroundColor: buttonColor,
+                          onPressed: () {
+                            BlocProvider.of<MosqiutoBloc>(context).add(
+                              MosquitoDetectMosquitoesEvent(
+                                  audio: _finalAudioFile),
+                            );
+                          },
+                          height: UIConverter.getComponentHeight(context, 70),
+                          width: UIConverter.getComponentWidth(context, 180),
+                          fontFamily: "Urbanist",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          textColor: Colors.white,
+                          borderRadius: 5,
+                        ),
+                TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Baground Noise Detected'),
+                              content: const Text(
+                                  'Background noise detected. Please try again.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('OK'),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    child: Container())
               ],
             ),
           ),
